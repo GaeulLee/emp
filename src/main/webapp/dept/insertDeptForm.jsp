@@ -39,6 +39,7 @@
 					<tr>
 						<td colspan="2">
 							<button type="submit" class="btn btn-outline-primary float-end">ADD</button>
+							<a href="<%=request.getContextPath()%>/dept/deptUpdateAction.jsp" class="btn btn-outline-primary float-start">BACK</a>
 						</td>
 					</tr>
 				</table>

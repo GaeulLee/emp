@@ -65,6 +65,7 @@
 			<div class="h1 clearfix mt-2" id="header">
 				부서 목록
 				<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary float-end mt-4" >부서 추가</a>
+				<a href="<%=request.getContextPath()%>/index.jsp" class="btn btn-outline-primary float-start mt-4">BACK</a>
 			</div>
 				<!-- 부서목록출력(부서번호 내림차순으로) -->
 			<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
