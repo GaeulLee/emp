@@ -36,7 +36,7 @@
 
 	// while(rs.next()) 말고 (ResultSet의 API(사용방법)을 모른다면 사용할 수 없음)
 	
-	// 3. 요청출력(View) -> 모델 데이터를 고객이 원하는 데이터로 출력 -> 뷰(view)리포트
+	// 3. 요청출력(View) -> 모델 데이터를 고객이 원하는 데이터로 출력 -> 뷰(리포트)
 	
 
 %>
@@ -49,36 +49,44 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 		<!-- Latest compiled JavaScript -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+		<style>
+			table {
+				text-align: center;
+			}
+			#header {
+				height: 70px;
+				line-height: 60px;
+				text-align: center;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="container">
-			<div class="clearfix">
-				<h1>DEPT LIST</h1>
-				<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary float-end mb-1" >부서 추가</a>
+			<div class="h1 clearfix mt-2" id="header">
+				부서 목록
+				<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary float-end mt-4" >부서 추가</a>
 			</div>
-			<div>
 				<!-- 부서목록출력(부서번호 내림차순으로) -->
-				<table class="table table-hover">
-					<tr class="table-primary">
-						<th>부서번호</th>
-						<th>부서이름</th>
-						<th>수정</th>
-						<th>삭제</th>
-					</tr>
-						<%
-							for(Department d : list){
-						%>
-							<tr>
-								<td><%=d.deptNo%></td>
-								<td><%=d.deptName%></td>
-								<td><a href="" class="btn btn-light">수정</a></td>
-								<td><a href="" class="btn btn-light">삭제</a></td>
-							<tr>	
-						<%
-							}
-						%>
-				</table>
-			</div>
+			<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
+				<tr class="table-primary">
+					<th>부서번호</th>
+					<th>부서이름</th>
+					<th>수정</th>
+					<th>삭제</th>
+				</tr>
+					<%
+						for(Department d : list){
+					%>
+						<tr>
+							<td><%=d.deptNo%></td>
+							<td><%=d.deptName%></td>
+							<td><a href="<%=request.getContextPath()%>/dept/deptUpdateForm.jsp?deptNo=<%=d.deptNo%>" class="btn btn-light">수정</a></td>
+							<td><a href="<%=request.getContextPath()%>/dept/deptDelete.jsp?deptNo=<%=d.deptNo%>" class="btn btn-light">삭제</a></td>
+						<tr>	
+					<%
+						}
+					%>
+			</table>
 		</div>
 	</body>
 </html>
