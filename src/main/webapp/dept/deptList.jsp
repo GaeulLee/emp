@@ -61,33 +61,42 @@
 		</style>
 	</head>
 	<body>
-		<div class="container">
-			<div class="h1 clearfix mt-2" id="header">
-				부서 목록
-				<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary float-end mt-4" >부서 추가</a>
-				<a href="<%=request.getContextPath()%>/index.jsp" class="btn btn-outline-primary float-start mt-4">BACK</a>
-			</div>
-				<!-- 부서목록출력(부서번호 내림차순으로) -->
-			<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
-				<tr class="table-primary">
-					<th>부서번호</th>
-					<th>부서이름</th>
-					<th>수정</th>
-					<th>삭제</th>
-				</tr>
-					<%
-						for(Department d : list){
-					%>
-						<tr>
-							<td><%=d.deptNo%></td>
-							<td><%=d.deptName%></td>
-							<td><a href="<%=request.getContextPath()%>/dept/deptUpdateForm.jsp?deptNo=<%=d.deptNo%>" class="btn btn-light">수정</a></td>
-							<td><a href="<%=request.getContextPath()%>/dept/deptDelete.jsp?deptNo=<%=d.deptNo%>" class="btn btn-light">삭제</a></td>
-						<tr>	
-					<%
-						}
-					%>
-			</table>
+	<div class="container">
+		<!-- 메뉴는 파티션jsp로 구성 -->
+		<div>
+			<jsp:include page="../inc/menu.jsp"></jsp:include> <!-- jsp액션코드 -->
 		</div>
+		
+		<!-- 본문 시작 -->
+		<div class="tab-content">
+			<div id="deptList" class="container tab-pane active">
+				<div class="h1 clearfix mt-2" id="header">
+					부서 목록
+					<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary float-end mt-4" >부서 추가</a>
+				</div>
+					<!-- 부서목록출력(부서번호 내림차순으로) -->
+				<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
+					<tr class="table-primary">
+						<th>부서번호</th>
+						<th>부서이름</th>
+						<th>수정</th>
+						<th>삭제</th>
+					</tr>
+						<%
+							for(Department d : list){
+						%>
+							<tr>
+								<td><%=d.deptNo%></td>
+								<td><%=d.deptName%></td>
+								<td><a href="<%=request.getContextPath()%>/dept/deptUpdateForm.jsp?deptNo=<%=d.deptNo%>" class="btn btn-light">수정</a></td>
+								<td><a href="<%=request.getContextPath()%>/dept/deptDelete.jsp?deptNo=<%=d.deptNo%>" class="btn btn-light">삭제</a></td>
+							<tr>	
+						<%
+							}
+						%>
+				</table>
+			</div>
+		</div>
+	</div>
 	</body>
 </html>

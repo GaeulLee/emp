@@ -22,6 +22,15 @@
 			<div class="clearfix">
 				<h1 class="text-white rounded mt-1">ADD DEPT LIST</h1>
 			</div>
+			<!-- msg파라메터 값이 있으면 출력 -->
+			<%
+				String msg = request.getParameter("msg");
+				if(msg != null){
+				%>
+					<div><%=msg%></div>
+				<%
+				}
+			%>
 			<form action="<%=request.getContextPath()%>/dept/insertDeptAction.jsp" method="post">
 				<table class="table table-borderless shadow-sm p-4 mb-4 bg-white">
 					<tr>
@@ -39,7 +48,7 @@
 					<tr>
 						<td colspan="2">
 							<button type="submit" class="btn btn-outline-primary float-end">ADD</button>
-							<a href="<%=request.getContextPath()%>/dept/deptUpdateAction.jsp" class="btn btn-outline-primary float-start">BACK</a>
+							<a href="<%=request.getContextPath()%>/dept/deptList.jsp" class="btn btn-outline-primary float-start">BACK</a>
 						</td>
 					</tr>
 				</table>

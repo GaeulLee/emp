@@ -8,13 +8,26 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 		<!-- Latest compiled JavaScript -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+		<style>
+			*{
+				text-align: center;
+				list-style: none;
+			}
+		</style>
 		</head>
 	<body>
-		<div class="container">
+		<div class="container w-25">
+			<!-- 메뉴는 파티션jsp로 구성 -->
 			<h1>INDEX</h1>
-			<ol class="nav nav-pills nav-justified">
-				<li class="nav-item">
-					<a href="<%=request.getContextPath()%>/dept/deptList.jsp" class="nav-link active">부서 관리</a>
+			<ol class="ps-0">
+				<li>
+					<a href="<%=request.getContextPath()%>/dept/deptList.jsp" class="btn btn-outline-secondary btn-lg mb-1">부서 관리</a>
+				</li>
+				<li>
+					<a href="<%=request.getContextPath()%>/emp/empList.jsp" class="btn btn-outline-secondary btn-lg mb-1">사원 관리</a>
+				</li>
+				<li>
+					<a href="<%=request.getContextPath()%>/dept/deptList.jsp" class="btn btn-outline-secondary btn-lg">연봉 관리</a>
 				</li>
 			</ol>
 		</div>
