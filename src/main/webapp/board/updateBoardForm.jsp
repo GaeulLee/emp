@@ -68,7 +68,7 @@
 				if(msg != null){
 				%>
 					<tr>
-						<td colspan="2" class="text-primary"> &#10069;<%=msg%></td>
+						<th colspan="2" class="text-primary"> &#10069;<%=msg%></th>
 					</tr>
 				<%
 					}
