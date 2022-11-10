@@ -65,7 +65,7 @@
 				</tr>
 				<tr class="h-50">
 					<th class="w-25">내용</th>
-					<td><%=board.boardContent%></td>
+					<td height="550px" class="align-top"><%=board.boardContent%></td>
 				</tr>
 				<tr>
 					<th class="w-25">작성자</th>

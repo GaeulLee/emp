@@ -35,7 +35,7 @@
 	ResultSet pwRs = pwStmt.executeQuery();
 	
 	if(pwRs.next()==false){
-		String msg = URLEncoder.encode("비밀번호가 일치하지 않습니다.", "utf-8"); // get방식 주소창에 문자열 인코딩
+		String msg = URLEncoder.encode("비밀번호가 일치하지 않습니다.", "utf-8");
 		response.sendRedirect(request.getContextPath() + "/board/updateBoardForm.jsp?msg=" + msg + "&boardNo=" + boardNo);
 		return;
 	}

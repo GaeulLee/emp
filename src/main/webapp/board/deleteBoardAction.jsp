@@ -11,7 +11,7 @@
 	
 	if(request.getParameter("boardPw") == null || request.getParameter("boardNo") == null || boardPw.equals("")){
 		String msg = URLEncoder.encode("비밀번호를 입력해주세요.","utf-8");
-		response.sendRedirect(request.getContextPath()+"board/insertboardForm.jsp?msg="+msg);
+		response.sendRedirect(request.getContextPath()+"/board/deleteBoardForm.jsp?msg="+msg+"&boardNo="+boardNo);
 		return;
 	}
 	

@@ -68,7 +68,7 @@
 				if(msg != null){
 				%>
 					<tr>
-						<th colspan="2" class="text-primary"> &#10069;<%=msg%></th>
+						<td colspan="2" class="text-primary"> &#10069;<%=msg%></td>
 					</tr>
 				<%
 					}
@@ -88,7 +88,7 @@
 					<tr class="h-50">
 						<th class="w-25">내용</th>
 						<td>
-							<textarea value="<%=board.boardContent%>" name="boardContent" rows="18" class="form-control"></textarea>
+							<textarea name="boardContent" rows="18" class="form-control"><%=board.boardContent%></textarea>
 						</td>
 					</tr>
 					<tr>
