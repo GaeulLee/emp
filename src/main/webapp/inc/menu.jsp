@@ -11,6 +11,9 @@
 		<a href="<%=request.getContextPath()%>/emp/empList.jsp" class="nav-link">사원관리</a>
 	</li>
 	<li class="nav-item">
-		<a href="<%=request.getContextPath()%>/index.jsp" class="nav-link">연봉관리</a>
+		<a href="<%=request.getContextPath()%>/board/boardList.jsp" class="nav-link">연봉관리</a>
+	</li>
+	<li class="nav-item">
+		<a href="<%=request.getContextPath()%>/board/boardList.jsp" class="nav-link">게시판관리</a>
 	</li>
 </ul>

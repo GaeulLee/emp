@@ -76,7 +76,6 @@
 				<th>부서번호</th>
 				<th>부서이름</th>
 				<th>수정</th>
-				<th>삭제</th>
 			</tr>
 				<%
 					for(Department d : list){
@@ -84,8 +83,10 @@
 					<tr>
 						<td><%=d.deptNo%></td>
 						<td><%=d.deptName%></td>
-						<td><a href="<%=request.getContextPath()%>/dept/deptUpdateForm.jsp?deptNo=<%=d.deptNo%>" class="btn btn-light">수정</a></td>
-						<td><a href="<%=request.getContextPath()%>/dept/deptDelete.jsp?deptNo=<%=d.deptNo%>" class="btn btn-light">삭제</a></td>
+						<td>
+							<a href="<%=request.getContextPath()%>/dept/deptUpdateForm.jsp?deptNo=<%=d.deptNo%>" class="btn btn-light">수정</a>
+							<a href="<%=request.getContextPath()%>/dept/deptDelete.jsp?deptNo=<%=d.deptNo%>" class="btn btn-light">삭제</a>
+						</td>
 					<tr>	
 				<%
 					}

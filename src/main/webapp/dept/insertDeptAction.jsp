@@ -18,6 +18,7 @@
 	
 	// 2. 요청처리
 	// 이미 존재하는 key(dept_no)값이 등록되면 예외(에러) 발생 -> 동일 값 입력 시 예외 발생하지 않도록
+	
 	Class.forName("org.mariadb.jdbc.Driver");
 	System.out.println("insertDeptAction.jsp 드라이버 로딩 성공"); // 드라이버 로딩 확인
 	// db 접속

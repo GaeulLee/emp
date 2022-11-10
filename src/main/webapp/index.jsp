@@ -17,19 +17,33 @@
 		</head>
 	<body>
 		<div class="container w-25">
-			<!-- 메뉴는 파티션jsp로 구성 -->
-			<h1>INDEX</h1>
-			<ol class="ps-0">
-				<li>
-					<a href="<%=request.getContextPath()%>/dept/deptList.jsp" class="btn btn-outline-secondary btn-lg mb-1">부서 관리</a>
-				</li>
-				<li>
-					<a href="<%=request.getContextPath()%>/emp/empList.jsp" class="btn btn-outline-secondary btn-lg mb-1">사원 관리</a>
-				</li>
-				<li>
-					<a href="<%=request.getContextPath()%>/dept/deptList.jsp" class="btn btn-outline-secondary btn-lg">연봉 관리</a>
-				</li>
-			</ol>
+			<table class="table table-borderless table-light rounded-3 shadow-sm p-4 mb-4 bg-white mt-5">
+				<tr>
+					<td>
+						<h1>INDEX</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="<%=request.getContextPath()%>/dept/deptList.jsp" class="btn btn-outline-secondary btn-lg mb-1">부서 관리</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="<%=request.getContextPath()%>/emp/empList.jsp" class="btn btn-outline-secondary btn-lg mb-1">사원 관리</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="<%=request.getContextPath()%>/dept/deptList.jsp" class="btn btn-outline-secondary btn-lg">연봉 관리</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="<%=request.getContextPath()%>/board/boardList.jsp" class="btn btn-outline-secondary btn-lg">게시물 관리</a>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</body>
 </html>

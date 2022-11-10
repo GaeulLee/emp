@@ -86,7 +86,6 @@
 				<th>사원번호</th>
 				<th>이름</th>
 				<th>수정</th>
-				<th>삭제</th>
 			</tr>
 			<%
 				for(Employee e : empList){
@@ -95,42 +94,39 @@
 						<td><%=e.empNo%></td>
 						<!-- 이름을 누르면 상세정보 나오게 -->
 						<td><a href=""><%=e.firstName+" "+e.lastName%></a></td>
-						<td><a href="<%=request.getContextPath()%>/dept/deptUpdateForm.jsp?emptNo=<%=e.empNo%>" class="btn btn-light">수정</a></td>
-						<td><a href="<%=request.getContextPath()%>/dept/deptDelete.jsp?emptNo=<%=e.empNo%>" class="btn btn-light">삭제</a></td>
+						<td>
+							<a href="<%=request.getContextPath()%>/dept/deptUpdateForm.jsp?emptNo=<%=e.empNo%>" class="btn btn-light">수정</a>
+							<a href="<%=request.getContextPath()%>/dept/deptDelete.jsp?emptNo=<%=e.empNo%>" class="btn btn-light">삭제</a>
+						</td>
 					</tr>
 			<%
 				}
 			%>
 		</table>
 		<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary float-end" >사원 추가</a>
-		<div>현재 페이지 수: <%=currentPage%></div>
+
 		<!-- 페이징 코드 -->
 		<ul class="pagination justify-content-center">
 			<li class="page-item">
 				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1" class="page-link"><<</a>
 			</li>
 			<%
-				if(currentPage > 10){
+				if(currentPage > 1){
 			%>
 				<li class="page-item">
-					<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-10%>" class="page-link"><</a>
+					<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>" class="page-link"><</a>
 				</li>
 			<%
 				}
-			
-				for(int i=currentPage; i<currentPage+rowPerPage; i++){
-					
 			%>
-					<li class="page-item">
-						<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=i%>" class="page-link"><%=i%></a>
-					</li>
+				<li class="page-item">
+					<a class="page-link"><%=currentPage%></a>
+				</li>
 			<%
-				}
-				
 				if(currentPage+10 < lastPage){
 			%>
 					<li class="page-item">
-						<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+10%>" class="page-link">></a>
+						<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>" class="page-link">></a>
 					</li>
 			<%
 				}

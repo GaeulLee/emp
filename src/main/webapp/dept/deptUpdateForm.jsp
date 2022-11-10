@@ -67,7 +67,9 @@
 				String msg = request.getParameter("msg");
 				if(msg != null){
 				%>
-					<div><%=msg%></div>
+				<tr>
+					<td colspan="2" class="text-primary"> &#10069;<%=msg%></td>
+				</tr>
 				<%
 				}
 			%>
