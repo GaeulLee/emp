@@ -22,6 +22,11 @@
 	</head>
 	<body>
 		<div class="container w-75 mx-auto">
+			<!-- 메뉴는 파티션jsp로 구성 -->
+			<div>
+				<jsp:include page="../inc/menu.jsp"></jsp:include> <!-- jsp액션코드 -->
+			</div>
+			<!-- 본문 시작 -->
 			<div class="rounded mt-1 h4 text-white" id="title">새 게시물 작성</div>
 			<form action="<%=request.getContextPath()%>/board/insertBoardAction.jsp" method="post">
 				<table class="table table-borderless shadow-sm p-4 mb-4 bg-white align-middle">

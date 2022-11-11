@@ -80,7 +80,7 @@
 		</div>
 		
 		<!-- 본문 시작 -->
-		<div class="h1 clearfix mt-2" id="header">사원 목록</div>
+		<div class="h2 mt-2" id="header"><strong>사원 목록</strong></div>
 		<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
 			<tr class="table-primary">
 				<th>사원번호</th>
@@ -93,19 +93,22 @@
 					<tr>
 						<td><%=e.empNo%></td>
 						<!-- 이름을 누르면 상세정보 나오게 -->
-						<td><a href=""><%=e.firstName+" "+e.lastName%></a></td>
+						<td><a href="<%=request.getContextPath()%>/emp/empOne.jsp?empNo=<%=e.empNo%>" class="text-muted"><%=e.firstName+" "+e.lastName%></a></td>
 						<td>
-							<a href="<%=request.getContextPath()%>/dept/deptUpdateForm.jsp?emptNo=<%=e.empNo%>" class="btn btn-light">수정</a>
-							<a href="<%=request.getContextPath()%>/dept/deptDelete.jsp?emptNo=<%=e.empNo%>" class="btn btn-light">삭제</a>
+							<a href="<%=request.getContextPath()%>/emp/updatEmpForm.jsp?emptNo=<%=e.empNo%>" class="btn btn-light">수정</a>
+							<a href="<%=request.getContextPath()%>/emp/deleteEmp.jsp?emptNo=<%=e.empNo%>" class="btn btn-light">삭제</a>
 						</td>
 					</tr>
 			<%
 				}
 			%>
 		</table>
-		<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary float-end" >사원 추가</a>
+		<div>
+			<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary float-end" >사원 추가</a>
+		</div>
 
 		<!-- 페이징 코드 -->
+		<div>
 		<ul class="pagination justify-content-center">
 			<li class="page-item">
 				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1" class="page-link"><<</a>
@@ -135,6 +138,7 @@
 				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>" class="page-link">>></a>
 			</li>
 		</ul>
+		</div>
 	</div>
 	</body>
 </html>

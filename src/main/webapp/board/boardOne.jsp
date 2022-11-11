@@ -1,32 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="vo.Board" %>
+<%@ page import="vo.Comment" %>
+<%@ page import="java.util.*" %>
 <%
 	// 1. 요청분석
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 
-	// 2. 요청처리
+	// 2-1. 게시글
 	// 디비 접속 -> 데이터 들고오기(제목, 내용, 작성자, 날짜)
 	Class.forName("org.mariadb.jdbc.Driver");
 	System.out.println("boardOne.jsp 드라이버 로딩 성공");
 	Connection conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees", "root", "java1234");
 	System.out.println(conn + "<-- employees db 접속 확인");
 	
-	String sql = "SELECT board_title boardTitle, board_content boardContent, board_writer boardWriter, createdate FROM board WHERE board_no = ?;";
-	PreparedStatement stmt = conn.prepareStatement(sql);
-	stmt.setInt(1, boardNo);
-	ResultSet rs = stmt.executeQuery();
+	String boardSql = "SELECT board_title boardTitle, board_content boardContent, board_writer boardWriter, createdate FROM board WHERE board_no = ?;";
+	PreparedStatement boardStmt = conn.prepareStatement(boardSql);
+	boardStmt.setInt(1, boardNo);
+	ResultSet boardRs = boardStmt.executeQuery();
 	
 	Board board = null;
-	if(rs.next()){
+	if(boardRs.next()){
 		board = new Board();
 		board.boardNo = boardNo;
-		board.boardTitle = rs.getString("boardTitle");
-		board.boardContent = rs.getString("boardContent");
-		board.boardWriter = rs.getString("boardWriter");
-		board.createdate = rs.getString("createdate");
+		board.boardTitle = boardRs.getString("boardTitle");
+		board.boardContent = boardRs.getString("boardContent");
+		board.boardWriter = boardRs.getString("boardWriter");
+		board.createdate = boardRs.getString("createdate");
 	}
 	
+	//  댓글 페이징
+	
+	
+	// 2-2. 댓글 목록 출력 처리
+	String commentSql = "SELECT comment_no commentNo, comment_writer commentWriter, comment_content commentContent FROM comment WHERE board_no = ? ORDER BY comment_no DESC";
+	PreparedStatement commentStmt = conn.prepareStatement(commentSql);
+	commentStmt.setInt(1, boardNo);
+	ResultSet commentRs = commentStmt.executeQuery();
+	
+	ArrayList<Comment> commentList = new ArrayList<Comment>();
+	while(commentRs.next()){
+		Comment c = new Comment();
+		c.commentNo = commentRs.getInt("commentNo");
+		c.commentWriter = commentRs.getString("commentWriter");
+		c.commentContent = commentRs.getString("commentContent");
+		commentList.add(c);
+	}
 	// 3. 요청출력
 %>
 <!DOCTYPE html>
@@ -83,6 +102,68 @@
 					</td>
 				</tr>
 			</table>
+			
+			<!-- 댓글 입력 -->
+			<div>
+				<form action="<%=request.getContextPath()%>/board/insertCommentAction.jsp" method="post">
+					<input type="hidden" value="<%=boardNo%>" name="boardNo">
+					<table class="table table-borderless shadow-sm p-4 mb-4 bg-white align-middle table-light">
+						<%
+							String msg = request.getParameter("msg");
+							if(msg != null){
+							%>
+								<tr>
+									<td colspan="3" class="text-primary"> &#10069;<%=msg%></td>
+								</tr>
+							<%
+								}
+						%>
+						<tr>
+							<th>댓글적기</th>
+							<td colspan="2">
+								<textarea rows="3" name="commentContent" class="form-control"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td colspan="2">
+								<input type="text" name="commentWriter" class="w-25 form-control">
+							</td>
+						</tr>
+						<tr>
+							<th>비밀번호</th>
+							<td>
+								<input type="password" name="commentPw" class="w-25 form-control">
+							</td>
+							<td>
+								<button type="submit" class="btn btn-outline-primary float-end">댓글입력</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			
+			<!-- 댓글 리스트 -->
+			<div>
+				<table class="table table-hover shadow-sm p-4 mb-4 bg-white align-middle table-light">
+					<tr>
+						<th>댓글번호</th>
+						<th>작성자</th>
+						<th>&nbsp;</th>
+					</tr>
+				<%
+					for(Comment c : commentList){
+				%>
+						<tr>
+							<td style="text-align:center;"><%=c.commentNo%></td>
+							<td><%=c.commentWriter%></td>
+							<td class="w-75"><%=c.commentContent%></td>
+						</tr>
+				<%
+					}
+				%>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>

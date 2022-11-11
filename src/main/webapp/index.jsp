@@ -11,7 +11,6 @@
 		<style>
 			*{
 				text-align: center;
-				list-style: none;
 			}
 		</style>
 		</head>

@@ -9,6 +9,7 @@
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 	String boardPw = request.getParameter("boardPw");
 	
+	// 비빌번호가 공백이여도 아래 비밀번호 확인 과정에서 공백인 비밀번호는 없기 때문에 공백 오류 처리를 하지 않아도 됨
 	if(request.getParameter("boardPw") == null || request.getParameter("boardNo") == null || boardPw.equals("")){
 		String msg = URLEncoder.encode("비밀번호를 입력해주세요.","utf-8");
 		response.sendRedirect(request.getContextPath()+"/board/deleteBoardForm.jsp?msg="+msg+"&boardNo="+boardNo);

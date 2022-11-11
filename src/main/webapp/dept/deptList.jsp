@@ -69,7 +69,7 @@
 		</div>
 		
 		<!-- 본문 시작 -->
-		<div class="h1 clearfix mt-2" id="header">부서 목록</div>
+		<div class="h2 mt-2" id="header"><strong>부서 목록</strong></div>
 		<!-- 부서목록출력(부서번호 내림차순으로) -->
 		<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
 			<tr class="table-primary">

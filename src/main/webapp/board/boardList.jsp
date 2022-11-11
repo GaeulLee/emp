@@ -78,7 +78,7 @@
 			<jsp:include page="../inc/menu.jsp"></jsp:include> <!-- jsp액션코드 -->
 		</div>
 		<!-- 본문시작 -->
-		<div class="h1 mt-2" id="header">자유게시판</div>
+		<div class="h2 mt-2" id="header"><strong>자유게시판</strong></div>
 		<!-- 3-1. 모델 데이터 어레이리스트 출력 -->	
 		<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
 			<tr class="table-primary">
