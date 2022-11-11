@@ -62,7 +62,7 @@
 					<tr>
 						<th class="w-25">글 비밀번호</th>
 						<td>
-							<input type="text" name="boardPw" class="form-control" placeholder="최초 작성 후 수정할 수 없습니다.">
+							<input type="password" name="boardPw" class="form-control" placeholder="최초 작성 후 수정할 수 없습니다.">
 						</td>
 					</tr>
 					<tr>

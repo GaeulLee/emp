@@ -149,7 +149,8 @@
 					<tr>
 						<th>댓글번호</th>
 						<th>작성자</th>
-						<th>&nbsp;</th>
+						<th class="w-75">&nbsp;</th>
+						<th style="width:30px;">&nbsp;</th>
 					</tr>
 				<%
 					for(Comment c : commentList){
@@ -157,7 +158,11 @@
 						<tr>
 							<td style="text-align:center;"><%=c.commentNo%></td>
 							<td><%=c.commentWriter%></td>
-							<td class="w-75"><%=c.commentContent%></td>
+							<td><%=c.commentContent%></td>
+							<td>
+								<a href="<%=request.getContextPath()%>/board/deleteCommentForm.jsp?commentNo=<%=c.commentNo%>&boardNo=<%=boardNo%>" class="btn-close">
+								</a>
+							</td>
 						</tr>
 				<%
 					}
