@@ -48,19 +48,15 @@
 				background-color: lightgrey;
 				text-align: center;
 			}
-			th{
+			table{
 				text-align: center;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="container w-75 mx-auto">
-			<!-- 메뉴는 파티션jsp로 구성 -->
-			<div>
-				<jsp:include page="../inc/menu.jsp"></jsp:include> <!-- jsp액션코드 -->
-			</div>
+		<div class="container w-25 mx-auto">
 			<!-- 본문 시작 -->
-			<div class="rounded mt-1 h4 text-white" id="title">게시물 삭제</div>
+			<div class="rounded mt-4 h4 text-white" id="title">게시물 삭제</div>
 			<form action="<%=request.getContextPath()%>/board/deleteBoardAction.jsp" method="post">
 				<table class="table table-borderless shadow-sm p-4 mb-4 bg-white align-middle">
 				<%
@@ -74,43 +70,23 @@
 					}
 				%>
 					<tr>
-						<th class="w-25">게시물 번호</th>
 						<td>
-							<input type="text" value="<%=boardNo%>" name="boardNo" class="form-control" readonly="readonly">
+							<!-- input type에 hidden 속성을 추가해서 값을 숨기면서 넘김 -->
+							<input type="hidden" value="<%=boardNo%>" name="boardNo" class="form-control">
 						</td>
 					</tr>
 					<tr>
-						<th class="w-25">제목</th>
-						<td>
-							<input type="text" value="<%=board.boardTitle%>" name="boardTitle" class="form-control">
-						</td>
+						<th>
+							정말 게시글을 삭제하시겠습니까?
+						</th>
 					</tr>
-					<tr class="h-50">
-						<th class="w-25">내용</th>
+					<tr>
 						<td>
-							<textarea name="boardContent" rows="18" class="form-control"><%=board.boardContent%></textarea>
+							<input type="text" name="boardPw" class="form-control w-50 mx-auto" placeholder="비밀번호를 입력해주세요.">
 						</td>
 					</tr>
 					<tr>
-						<th class="w-25">작성자</th>
 						<td>
-							<input type="text" value="<%=board.boardWriter%>" name="boardWriter" class="form-control" readonly="readonly">
-						</td>
-					</tr>
-					<tr>
-						<th class="w-25">작성일</th>
-						<td>
-							<input type="text" value="<%=board.createdate%>" name="createdate" class="form-control" readonly="readonly">
-						</td>
-					</tr>
-					<tr>
-						<th class="w-25">글 비밀번호</th>
-						<td>
-							<input type="text" name="boardPw" class="form-control" placeholder="삭제를 위한 비밀번호를 입력해주세요.">
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
 							<a href="<%=request.getContextPath()%>/board/boardList.jsp" class="btn btn-outline-primary float-start">BACK</a>
 							<button type="submit" class="btn btn-light float-end me-2">삭제</button>
 						</td>
