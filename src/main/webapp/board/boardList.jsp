@@ -103,7 +103,7 @@
 					}
 				%>
 		</table>
-		<a href="<%=request.getContextPath()%>/board/insertboardForm.jsp" class="btn btn-outline-primary float-end" >새 게시글 작성</a>
+		<a href="<%=request.getContextPath()%>/board/insertboardForm.jsp" class="btn btn-outline-primary" >새 게시글 작성</a>
 		
 		<!-- 3-2. 페이징 -->
 		<ul class="pagination justify-content-center">

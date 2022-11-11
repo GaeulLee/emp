@@ -6,6 +6,11 @@
 <%
 	// 1. 요청분석
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	// 댓글 페이징 위한 현재 페이지 값
+	int currentPage = 1;
+	if(request.getParameter("currentPage") != null){// 새로운 페이지 값이 넘어온다면 바뀔 수 있도록
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	}
 
 	// 2-1. 게시글
 	// 디비 접속 -> 데이터 들고오기(제목, 내용, 작성자, 날짜)
@@ -30,12 +35,29 @@
 	}
 	
 	//  댓글 페이징
+	final int ROW_PER_PAGE = 5; // 한 페이지 당 댓글 개수 고정
+	int beginRow = (currentPage-1)*ROW_PER_PAGE;
 	
+	String cntSql = "SELECT COUNT(*) cnt FROM comment WHERE board_no = ?;";
+	PreparedStatement cntStmt = conn.prepareStatement(cntSql);
+	cntStmt.setInt(1, boardNo);
+	ResultSet cntRs = cntStmt.executeQuery();
+	int cnt = 0; // 해당 게시물 당 댓글의 수
+	if(cntRs.next()){
+		cnt = cntRs.getInt("cnt");
+	}
+	
+	// 댓글 갯수 만큼 맞는 페이지 수 구하기
+	// cnt 가 6이고, ROW_PER_PAGE 가 5 일때 -> 1.* -> 올림 -> 2
+	int lastPage = (int)(Math.ceil((double)cnt / (double)ROW_PER_PAGE));
 	
 	// 2-2. 댓글 목록 출력 처리
-	String commentSql = "SELECT comment_no commentNo, comment_writer commentWriter, comment_content commentContent FROM comment WHERE board_no = ? ORDER BY comment_no DESC";
+	String commentSql = "SELECT comment_no commentNo, comment_writer commentWriter, comment_content commentContent FROM comment WHERE board_no = ? ORDER BY comment_no DESC LIMIT ?,?";
 	PreparedStatement commentStmt = conn.prepareStatement(commentSql);
 	commentStmt.setInt(1, boardNo);
+	commentStmt.setInt(2, beginRow);
+	commentStmt.setInt(3, ROW_PER_PAGE);
+	
 	ResultSet commentRs = commentStmt.executeQuery();
 	
 	ArrayList<Comment> commentList = new ArrayList<Comment>();
@@ -46,6 +68,7 @@
 		c.commentContent = commentRs.getString("commentContent");
 		commentList.add(c);
 	}
+	
 	// 3. 요청출력
 %>
 <!DOCTYPE html>
@@ -145,7 +168,7 @@
 			
 			<!-- 댓글 리스트 -->
 			<div>
-				<table class="table table-hover shadow-sm p-4 mb-4 bg-white align-middle table-light">
+				<table class="table shadow-sm p-4 mb-4 bg-white align-middle table-light">
 					<tr>
 						<th>댓글번호</th>
 						<th>작성자</th>
@@ -167,6 +190,36 @@
 				<%
 					}
 				%>
+					<!-- 페이징 -->
+					<tr>
+						<td colspan="4">
+							<ul class="pagination justify-content-center mb-0">
+								<li class="page-item">
+									<%
+										if(currentPage > 1) {
+									%>
+											<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage-1%>" class="page-link">
+												이전
+											</a>
+									<%		
+										}
+									%>
+								</li>
+								<li class="page-item">
+									<%				
+										// 다음 <-- 마지막페이지 <-- 전체행의 수 
+										if(currentPage < lastPage) {
+									%>
+											<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage+1%>" class="page-link">
+												다음
+											</a>
+									<%	
+										}
+									%>
+								</li>
+							</ul>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>

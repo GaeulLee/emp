@@ -92,7 +92,7 @@
 					}
 				%>
 		</table>
-		<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary float-end" >부서 추가</a>
+		<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary" >부서 추가</a>
 	</div>
 	</body>
 </html>

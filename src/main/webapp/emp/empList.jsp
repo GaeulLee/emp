@@ -103,9 +103,7 @@
 				}
 			%>
 		</table>
-		<div>
-			<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary float-end" >사원 추가</a>
-		</div>
+		<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary" >사원 추가</a>
 
 		<!-- 페이징 코드 -->
 		<div>
@@ -126,7 +124,7 @@
 					<a class="page-link"><%=currentPage%></a>
 				</li>
 			<%
-				if(currentPage+10 < lastPage){
+				if(currentPage < lastPage){
 			%>
 					<li class="page-item">
 						<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>" class="page-link">></a>
