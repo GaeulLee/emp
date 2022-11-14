@@ -103,131 +103,130 @@
 		</style>
 	</head>
 	<body>
-	<div class="container">
 		<!-- 메뉴는 파티션jsp로 구성 -->
 		<div>
 			<jsp:include page="../inc/menu.jsp"></jsp:include> <!-- jsp액션코드 -->
 		</div>
-		
-		<!-- 본문시작 -->
-		<div class="h2 mt-2" id="header"><strong>자유게시판</strong></div>
-		
-		<!-- 검색 폼 -->
-		<div class="clearfix float-end mb-1">
-			<form action="<%=request.getContextPath()%>/board/boardList.jsp" method="post">
-				<label>
-				<%
-					// 검색 창에 null 값이 표시되지 않도록
-					if(word != null){
-				%>
-						<input type="text" name="word" class="form-control" value="<%=word%>" placeholder="글 내용 검색">
-				<%	
-					} else {
-				%>
-						<input type="text" name="word" class="form-control" placeholder="글 내용 검색">
-				<%
-					}
-				%>
-				</label>
-				<button type="submit" class="btn btn-outline-primary">Search</button>
-			</form>
-		</div>
-		
-		<!-- 3-1. 모델 데이터 어레이리스트 출력 -->	
-		<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
-			<tr class="table-primary">
-				<th>게시물 번호</th>
-				<th class="w-50">제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-			</tr>
-				<%
-					for(Board b : boardList){
-				%>
-					<tr>
-						<td><%=b.boardNo%></td>
-						<!-- 제목 클릭 시 상세보기로 이동 -->
-						<td style="text-align:left;">
-							<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=b.boardNo%>" class="text-muted"><%=b.boardTitle%></a>
-						</td>
-						<td><%=b.boardWriter%></td>
-						<td><%=b.createdate%></td>
-					<tr>
-				<%
-					}
-				%>
-		</table>
-		<a href="<%=request.getContextPath()%>/board/insertboardForm.jsp" class="btn btn-outline-primary" >새 게시글 작성</a>
-		
-		<!-- 3-2. 페이징 -->
-		<%
-			if(word == null || word.equals("")){ // 검색 값이 없을 때 페이징
-		%>
-			<ul class="pagination justify-content-center">
-				<li class="page-item">
-					<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1" class="page-link"><<</a>
-				</li>
-				<li class="page-item">
-				<%
-					if(currentPage > 1){
-				%>
-						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage-1%>" class="page-link"><</a>
-				<%
-					}
-				%>
-				</li>
-				<li class="page-item">
-					<a class="page-link"><%=currentPage%></a>
-				</li>
-				<li class="page-item">
-				<%
-					if(currentPage < lastPage){
-				%>
-						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>" class="page-link">></a>
-				<%
-					}
-				%>
-				</li>
-				<li class="page-item">
-					<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>" class="page-link">>></a>
-				</li>
-			</ul>
-		<%
-			} else { // 검색 값이 있을 때 페이징(계속 값을 넘겨줌)
-		%>
+		<div class="container">
+			<!-- 본문시작 -->
+			<div class="h2 mt-2" id="header"><strong>자유게시판</strong></div>
+			
+			<!-- 검색 폼 -->
+			<div class="clearfix float-end mb-1">
+				<form action="<%=request.getContextPath()%>/board/boardList.jsp" method="post">
+					<label>
+					<%
+						// 검색 창에 null 값이 표시되지 않도록
+						if(word != null){
+					%>
+							<input type="text" name="word" class="form-control" value="<%=word%>" placeholder="글 내용 검색">
+					<%	
+						} else {
+					%>
+							<input type="text" name="word" class="form-control" placeholder="글 내용 검색">
+					<%
+						}
+					%>
+					</label>
+					<button type="submit" class="btn btn-outline-primary">Search</button>
+				</form>
+			</div>
+			
+			<!-- 3-1. 모델 데이터 어레이리스트 출력 -->	
+			<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
+				<tr class="table-primary">
+					<th>게시물 번호</th>
+					<th class="w-50">제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+				</tr>
+					<%
+						for(Board b : boardList){
+					%>
+						<tr>
+							<td><%=b.boardNo%></td>
+							<!-- 제목 클릭 시 상세보기로 이동 -->
+							<td style="text-align:left;">
+								<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=b.boardNo%>" class="text-muted"><%=b.boardTitle%></a>
+							</td>
+							<td><%=b.boardWriter%></td>
+							<td><%=b.createdate%></td>
+						<tr>
+					<%
+						}
+					%>
+			</table>
+			<a href="<%=request.getContextPath()%>/board/insertboardForm.jsp" class="btn btn-outline-primary" >새 게시글 작성</a>
+			
+			<!-- 3-2. 페이징 -->
+			<%
+				if(word == null || word.equals("")){ // 검색 값이 없을 때 페이징
+			%>
 				<ul class="pagination justify-content-center">
-				<li class="page-item">
-					<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1&word=<%=word%>" class="page-link"><<</a>
-				</li>
-				<li class="page-item">
-				<%
-					if(currentPage > 1){
-				%>
-						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="page-link"><</a>
-				<%
-					}
-				%>
-				</li>
-				<li class="page-item">
-					<a class="page-link"><%=currentPage%></a>
-				</li>
-				<li class="page-item">
-				<%
-					if(currentPage < lastPage){
-				%>
-						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="page-link">></a>
-				<%
-					}
-				%>
-				</li>
-				<li class="page-item">
-					<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>&word=<%=word%>" class="page-link">>></a>
-				</li>
-			</ul>
-		<%
-			}
-		%>
-		
-	</div>
+					<li class="page-item">
+						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1" class="page-link"><<</a>
+					</li>
+					<li class="page-item">
+					<%
+						if(currentPage > 1){
+					%>
+							<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage-1%>" class="page-link"><</a>
+					<%
+						}
+					%>
+					</li>
+					<li class="page-item">
+						<a class="page-link"><%=currentPage%></a>
+					</li>
+					<li class="page-item">
+					<%
+						if(currentPage < lastPage){
+					%>
+							<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>" class="page-link">></a>
+					<%
+						}
+					%>
+					</li>
+					<li class="page-item">
+						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>" class="page-link">>></a>
+					</li>
+				</ul>
+			<%
+				} else { // 검색 값이 있을 때 페이징(계속 값을 넘겨줌)
+			%>
+					<ul class="pagination justify-content-center">
+					<li class="page-item">
+						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1&word=<%=word%>" class="page-link"><<</a>
+					</li>
+					<li class="page-item">
+					<%
+						if(currentPage > 1){
+					%>
+							<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="page-link"><</a>
+					<%
+						}
+					%>
+					</li>
+					<li class="page-item">
+						<a class="page-link"><%=currentPage%></a>
+					</li>
+					<li class="page-item">
+					<%
+						if(currentPage < lastPage){
+					%>
+							<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="page-link">></a>
+					<%
+						}
+					%>
+					</li>
+					<li class="page-item">
+						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>&word=<%=word%>" class="page-link">>></a>
+					</li>
+				</ul>
+			<%
+				}
+			%>
+			
+		</div>
 	</body>
 </html>

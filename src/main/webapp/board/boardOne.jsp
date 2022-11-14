@@ -93,11 +93,11 @@
 		</style>
 	</head>
 	<body>
+		<!-- 메뉴는 파티션jsp로 구성 -->
+		<div>
+			<jsp:include page="../inc/menu.jsp"></jsp:include> <!-- jsp액션코드 -->
+		</div>
 		<div class="container w-75 mx-auto">
-			<!-- 메뉴는 파티션jsp로 구성 -->
-			<div>
-				<jsp:include page="../inc/menu.jsp"></jsp:include> <!-- jsp액션코드 -->
-			</div>
 			<!-- 본문 시작 -->
 			<div class="rounded mt-1 h4 text-white" id="title"><%=board.boardTitle%></div>
 			<table class="table table-borderless shadow-sm p-4 mb-4 bg-white align-middle">

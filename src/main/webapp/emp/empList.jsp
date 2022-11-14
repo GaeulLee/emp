@@ -95,125 +95,123 @@
 		</style>
 	</head>
 	<body>
-	<div class="container">
-	
 		<!-- 메뉴는 파티션jsp로 구성 -->
 		<div>
 			<jsp:include page="/inc/menu.jsp"></jsp:include> <!-- jsp액션코드 -->
 		</div>
-		
-		<!-- 본문 시작 -->
-		<div class="h2 mt-2" id="header"><strong>사원 목록</strong></div>
-		
-		<!-- 검색 폼 -->
-		<div class="clearfix float-end mb-1">
-			<form action="<%=request.getContextPath()%>/emp/empList.jsp" method="post">
-				<label>
+		<div class="container">
+			<!-- 본문 시작 -->
+			<div class="h2 mt-2" id="header"><strong>사원 목록</strong></div>
+			
+			<!-- 검색 폼 -->
+			<div class="clearfix float-end mb-1">
+				<form action="<%=request.getContextPath()%>/emp/empList.jsp" method="post">
+					<label>
+					<%
+						if(word == null){
+					%>
+							<input type="text" name="word" class="form-control" placeholder="사원 검색 (first name)">
+					<%
+						} else {
+					%>
+							<input type="text" name="word" value="<%=word%>" class="form-control" placeholder="사원 검색">
+					<%		
+						}
+					%>
+					</label>
+					<button type="submit" class="btn btn-outline-primary">Search</button>
+				</form>
+			</div>
+			
+			<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
+				<tr class="table-primary">
+					<th class="w-25">사원번호</th>
+					<th>이름</th>
+				</tr>
 				<%
-					if(word == null){
+					for(Employee e : empList){
 				%>
-						<input type="text" name="word" class="form-control" placeholder="사원 검색 (first name)">
+						<tr>
+							<td><%=e.empNo%></td>
+							<!-- 이름을 누르면 상세정보 나오게 -->
+							<td><a href="<%=request.getContextPath()%>/emp/empOne.jsp?empNo=<%=e.empNo%>" class="text-muted"><%=e.firstName+" "+e.lastName%></a></td>
+						</tr>
 				<%
-					} else {
-				%>
-						<input type="text" name="word" value="<%=word%>" class="form-control" placeholder="사원 검색">
-				<%		
 					}
 				%>
-				</label>
-				<button type="submit" class="btn btn-outline-primary">Search</button>
-			</form>
-		</div>
-		
-		<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
-			<tr class="table-primary">
-				<th class="w-25">사원번호</th>
-				<th>이름</th>
-			</tr>
+			</table>
+			<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary" >사원 추가</a>
+	
+			<!-- 페이징 코드 -->
+			<div>
 			<%
-				for(Employee e : empList){
+				if(word == null){
 			%>
-					<tr>
-						<td><%=e.empNo%></td>
-						<!-- 이름을 누르면 상세정보 나오게 -->
-						<td><a href="<%=request.getContextPath()%>/emp/empOne.jsp?empNo=<%=e.empNo%>" class="text-muted"><%=e.firstName+" "+e.lastName%></a></td>
-					</tr>
+				<ul class="pagination justify-content-center">
+					<li class="page-item">
+						<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1" class="page-link"><<</a>
+					</li>
+					<%
+						if(currentPage > 1){
+					%>
+						<li class="page-item">
+							<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>" class="page-link"><</a>
+						</li>
+					<%
+						}
+					%>
+						<li class="page-item">
+							<a class="page-link"><%=currentPage%></a>
+						</li>
+					<%
+						if(currentPage < lastPage){
+					%>
+							<li class="page-item">
+								<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>" class="page-link">></a>
+							</li>
+					<%
+						}
+					%>
+					<li class="page-item">
+						<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>" class="page-link">>></a>
+					</li>
+				</ul>
+			<%
+				} else {
+			%>
+				<ul class="pagination justify-content-center">
+					<li class="page-item">
+						<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1&word=<%=word%>" class="page-link"><<</a>
+					</li>
+					<%
+						if(currentPage > 1){
+					%>
+						<li class="page-item">
+							<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="page-link"><</a>
+						</li>
+					<%
+						}
+					%>
+						<li class="page-item">
+							<a class="page-link"><%=currentPage%></a>
+						</li>
+					<%
+						if(currentPage < lastPage){
+					%>
+							<li class="page-item">
+								<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="page-link">></a>
+							</li>
+					<%
+						}
+					%>
+					<li class="page-item">
+						<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>&word=<%=word%>" class="page-link">>></a>
+					</li>
+				</ul>
 			<%
 				}
 			%>
-		</table>
-		<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-primary" >사원 추가</a>
-
-		<!-- 페이징 코드 -->
-		<div>
-		<%
-			if(word == null){
-		%>
-			<ul class="pagination justify-content-center">
-				<li class="page-item">
-					<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1" class="page-link"><<</a>
-				</li>
-				<%
-					if(currentPage > 1){
-				%>
-					<li class="page-item">
-						<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>" class="page-link"><</a>
-					</li>
-				<%
-					}
-				%>
-					<li class="page-item">
-						<a class="page-link"><%=currentPage%></a>
-					</li>
-				<%
-					if(currentPage < lastPage){
-				%>
-						<li class="page-item">
-							<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>" class="page-link">></a>
-						</li>
-				<%
-					}
-				%>
-				<li class="page-item">
-					<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>" class="page-link">>></a>
-				</li>
-			</ul>
-		<%
-			} else {
-		%>
-			<ul class="pagination justify-content-center">
-				<li class="page-item">
-					<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1&word=<%=word%>" class="page-link"><<</a>
-				</li>
-				<%
-					if(currentPage > 1){
-				%>
-					<li class="page-item">
-						<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="page-link"><</a>
-					</li>
-				<%
-					}
-				%>
-					<li class="page-item">
-						<a class="page-link"><%=currentPage%></a>
-					</li>
-				<%
-					if(currentPage < lastPage){
-				%>
-						<li class="page-item">
-							<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="page-link">></a>
-						</li>
-				<%
-					}
-				%>
-				<li class="page-item">
-					<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>&word=<%=word%>" class="page-link">>></a>
-				</li>
-			</ul>
-		<%
-			}
-		%>
+			</div>
 		</div>
-	</div>
 	</body>
 </html>

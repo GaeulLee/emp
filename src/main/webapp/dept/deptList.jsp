@@ -70,13 +70,12 @@
 		</style>
 	</head>
 	<body>
-	<div class="container">
+	<!-- 메뉴는 파티션jsp로 구성 -->
+	<div>
+		<jsp:include page="../inc/menu.jsp"></jsp:include> <!-- jsp액션코드 -->
+	</div>
 	
-		<!-- 메뉴는 파티션jsp로 구성 -->
-		<div>
-			<jsp:include page="../inc/menu.jsp"></jsp:include> <!-- jsp액션코드 -->
-		</div>
-		
+	<div class="container">
 		<!-- 본문 시작 -->
 		<div class="h2 mt-2" id="header"><strong>부서 목록</strong></div>
 		
