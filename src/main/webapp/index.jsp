@@ -39,7 +39,7 @@
 				</tr>
 				<tr>
 					<td>
-						<a href="<%=request.getContextPath()%>/board/boardList.jsp" class="btn btn-outline-secondary btn-lg">게시물 관리</a>
+						<a href="<%=request.getContextPath()%>/board/boardList.jsp" class="btn btn-outline-secondary btn-lg">게시판 관리</a>
 					</td>
 				</tr>
 			</table>

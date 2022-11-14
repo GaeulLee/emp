@@ -116,7 +116,18 @@
 		<div class="clearfix float-end mb-1">
 			<form action="<%=request.getContextPath()%>/board/boardList.jsp" method="post">
 				<label>
-					<input type="text" name="word" class="form-control" placeholder="글 내용 검색">
+				<%
+					// 검색 창에 null 값이 표시되지 않도록
+					if(word != null){
+				%>
+						<input type="text" name="word" class="form-control" value="<%=word%>" placeholder="글 내용 검색">
+				<%	
+					} else {
+				%>
+						<input type="text" name="word" class="form-control" placeholder="글 내용 검색">
+				<%
+					}
+				%>
 				</label>
 				<button type="submit" class="btn btn-outline-primary">Search</button>
 			</form>
@@ -126,7 +137,7 @@
 		<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
 			<tr class="table-primary">
 				<th>게시물 번호</th>
-				<th>제목</th>
+				<th class="w-50">제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
 			</tr>

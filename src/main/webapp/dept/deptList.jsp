@@ -86,7 +86,7 @@
 				<label>
 					<input type="text" name="word" class="form-control" placeholder="부서 검색">
 				</label>
-					<button type="submit" class="btn btn-outline-primary">Search</button>
+				<button type="submit" class="btn btn-outline-primary">Search</button>
 			</form>
 		</div>
 		
