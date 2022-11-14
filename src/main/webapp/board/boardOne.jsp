@@ -128,9 +128,9 @@
 			
 			<!-- 댓글 입력 -->
 			<div>
-				<form action="<%=request.getContextPath()%>/board/insertCommentAction.jsp" method="post">
+				<form action="<%=request.getContextPath()%>/board/insertCommentAction.jsp" method="post" class="mt-0">
 					<input type="hidden" value="<%=boardNo%>" name="boardNo">
-					<table class="table table-borderless shadow-sm p-4 mb-4 bg-white align-middle table-light">
+					<table class="table table-borderless shadow-sm p-4 mb-0 bg-white align-middle table-light">
 						<%
 							String msg = request.getParameter("msg");
 							if(msg != null){
@@ -168,7 +168,7 @@
 			
 			<!-- 댓글 리스트 -->
 			<div>
-				<table class="table shadow-sm p-4 mb-4 bg-white align-middle table-light">
+				<table class="table shadow-sm p-4 mt-1 bg-white align-middle table-light">
 					<tr>
 						<th>댓글번호</th>
 						<th>작성자</th>

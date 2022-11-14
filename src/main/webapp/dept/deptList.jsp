@@ -7,20 +7,29 @@
 	request.setCharacterEncoding("utf-8");
 
 	// 1. 요청분석 + alpha (Controller)
+	String word = request.getParameter("word");
+	
 	
 	// 2. 요청처리(Model) -> 모델 데이터(단일값 or 자료구조: 배열, list 형태)
+	// 분기 -> 1) word가 null 일때, 2) word가 공백일때, 3) word 값이 있을때
 	
-	// 드라이버 로딩
+	
 	Class.forName("org.mariadb.jdbc.Driver");
 	System.out.println("deptList.jsp 드라이버 로딩 성공");
-	
-	// db 접속
 	Connection conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees", "root", "java1234");
 	System.out.println(conn + "<-- employees db 접속 확인");
 	
 	// 쿼리문 입력
-	String sql = "SELECT dept_no deptNo, dept_name deptName FROM departments ORDER BY dept_no ASC;";
-	PreparedStatement stmt = conn.prepareStatement(sql); // 쿼리문장을 실행시키는 객체
+	String sql = null;
+	PreparedStatement stmt = null;
+	if(word == null || word.equals("")){ // 검색을 안했을 때
+		sql = "SELECT dept_no deptNo, dept_name deptName FROM departments ORDER BY dept_no ASC;";
+		 stmt = conn.prepareStatement(sql);
+	} else { // 검색을 했을 때(word의 입력값이 있을 때)
+		sql = "SELECT dept_no deptNo, dept_name deptName FROM departments WHERE dept_name LIKE ? ORDER BY dept_no ASC";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%"+word+"%");
+	}
 	
 	// 결과 저장
 	ResultSet rs = stmt.executeQuery(); 
@@ -70,6 +79,17 @@
 		
 		<!-- 본문 시작 -->
 		<div class="h2 mt-2" id="header"><strong>부서 목록</strong></div>
+		
+		<!-- 검색 폼 -->
+		<div class="clearfix float-end mb-1">
+			<form action="<%=request.getContextPath()%>/dept/deptList.jsp" method="post">
+				<label>
+					<input type="text" name="word" class="form-control" placeholder="부서 검색">
+				</label>
+					<button type="submit" class="btn btn-outline-primary">Search</button>
+			</form>
+		</div>
+		
 		<!-- 부서목록출력(부서번호 내림차순으로) -->
 		<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
 			<tr class="table-primary">
