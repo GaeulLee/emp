@@ -72,10 +72,10 @@
 	} else {
 		sql = "SELECT s.emp_no empNo, s.salary salary, s.from_date fromDate, s.to_date toDate, e.first_name firstName, e.last_name lastName FROM salaries s INNER JOIN employees e ON s.emp_no = e.emp_no WHERE e.first_name LIKE ? OR e.last_name LIKE ? ORDER BY s.emp_no ASC LIMIT ?,?";
 		stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, beginRow);
-		stmt.setInt(2, ROW_PER_PAGE);
-		stmt.setString(3, "%"+word+"%");
-		stmt.setString(4, "%"+word+"%");
+		stmt.setString(1, "%"+word+"%");
+		stmt.setString(2, "%"+word+"%");
+		stmt.setInt(3, beginRow);
+		stmt.setInt(4, ROW_PER_PAGE);
 	}
 	ResultSet rs = stmt.executeQuery();
 	
