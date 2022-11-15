@@ -23,6 +23,10 @@
 	// 페이지 당 게시글 수, 시작 행 구하기
 	final int ROW_PER_PAGE = 10; //  final: 변수 값을 바꿀 수 없게 해줌 + 대문자로 적음(띄어쓰기는 _ 로)
 	int beginRow = (currentPage-1)*ROW_PER_PAGE; // ...LIMIT beginRow, ROW_PER_PAGE
+	int cnt = 0; // 전체 행의 수
+	final int PAGE_COUNT = 10; // 한 페이지 당 보여줄 페이지 목록 수
+	int beginPage = (currentPage-1)/PAGE_COUNT*PAGE_COUNT+1; //페이지 목록 시작 값
+	int endPage = beginPage+PAGE_COUNT-1; // 페이지 목록 끝 값
 	
 	// 드라이버 로딩
 	Class.forName("org.mariadb.jdbc.Driver");
@@ -35,7 +39,6 @@
 	String listSql = null;
 	PreparedStatement cntStmt = null;
 	PreparedStatement listStmt = null;
-	int cnt = 0; // 전체 행의 수
 	
 	// 분기에 따라 게시물 행의 수 구하기
 	if(word == null || word.equals("")){ // 검색 값이 없으면 전체 목록 행 수
@@ -51,11 +54,14 @@
 	if(cntRs.next()){
 		cnt = cntRs.getInt("cnt");
 	}
-	
 	// 마지막 페이지 구하기
 	// 올림을 하게 되면 5.3 -> 6.0
 	int lastPage = (int)(Math.ceil((double)cnt / (double)ROW_PER_PAGE));
 	
+	if(endPage > lastPage){ // 페이지 목록이 lastPage까지만 보이도록
+		endPage = lastPage;
+	}
+
 	// 분기에 따라 페이지당 게시물과 전체 게시물 수로 게시물 불러오기
 	if(word == null || word.equals("")){ // 전체 목록
 		listSql = "SELECT board_no boardNo, board_title boardTitle, board_writer boardWriter, createdate FROM board ORDER BY board_no DESC LIMIT ?,?;";
@@ -158,67 +164,92 @@
 			</table>
 			<a href="<%=request.getContextPath()%>/board/insertboardForm.jsp" class="btn btn-outline-primary" >새 게시글 작성</a>
 			
-			<!-- 3-2. 페이징 -->
+			<!-- 페이징 코드 -->
+			<div>
 			<%
-				if(word == null || word.equals("")){ // 검색 값이 없을 때 페이징
+				if(word == null){
 			%>
 				<ul class="pagination justify-content-center">
 					<li class="page-item">
 						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1" class="page-link"><<</a>
 					</li>
-					<li class="page-item">
 					<%
-						if(currentPage > 1){
+						if(currentPage > PAGE_COUNT){
 					%>
+						<li class="page-item">
 							<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage-1%>" class="page-link"><</a>
+						</li>
 					<%
 						}
-					%>
-					</li>
-					<li class="page-item">
-						<a class="page-link"><%=currentPage%></a>
-					</li>
-					<li class="page-item">
-					<%
+
+						for(int i=beginPage; i<=endPage; i++){
+							if(currentPage == i){
+							%>
+								<li class="page-item active">
+									<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=i%>" class="page-link"><%=i%></a>
+								</li>
+							<%
+							} else {
+							%>
+								<li class="page-item">
+									<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=i%>" class="page-link"><%=i%></a>
+								</li>
+							<%
+							}
+						}
+					
 						if(currentPage < lastPage){
-					%>
-							<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>" class="page-link">></a>
-					<%
+						%>
+							<li class="page-item">
+								<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>" class="page-link">></a>
+							</li>
+						<%
 						}
 					%>
-					</li>
 					<li class="page-item">
 						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>" class="page-link">>></a>
 					</li>
 				</ul>
 			<%
-				} else { // 검색 값이 있을 때 페이징(계속 값을 넘겨줌)
+				} else {
 			%>
-					<ul class="pagination justify-content-center">
+				<ul class="pagination justify-content-center">
 					<li class="page-item">
-						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1&word=<%=word%>" class="page-link"><<</a>
+						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1" class="page-link"><<</a>
 					</li>
-					<li class="page-item">
 					<%
-						if(currentPage > 1){
+						if(currentPage > PAGE_COUNT){
 					%>
+						<li class="page-item">
 							<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="page-link"><</a>
+						</li>
 					<%
 						}
-					%>
-					</li>
-					<li class="page-item">
-						<a class="page-link"><%=currentPage%></a>
-					</li>
-					<li class="page-item">
-					<%
+
+						for(int i=beginPage; i<=endPage; i++){
+							if(currentPage == i){
+							%>
+								<li class="page-item active">
+									<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=i%>&word=<%=word%>" class="page-link"><%=i%></a>
+								</li>
+							<%
+							} else {
+							%>
+								<li class="page-item">
+									<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=i%>&word=<%=word%>" class="page-link"><%=i%></a>
+								</li>
+							<%
+							}
+						}
+					
 						if(currentPage < lastPage){
-					%>
-							<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="page-link">></a>
-					<%
+						%>
+							<li class="page-item">
+								<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="page-link">></a>
+							</li>
+						<%
 						}
 					%>
-					</li>
 					<li class="page-item">
 						<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>&word=<%=word%>" class="page-link">>></a>
 					</li>
@@ -226,7 +257,7 @@
 			<%
 				}
 			%>
-			
+			</div>
 		</div>
 	</body>
 </html>

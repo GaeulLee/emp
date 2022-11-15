@@ -34,6 +34,11 @@
 				</tr>
 				<tr>
 					<td>
+						<a href="<%=request.getContextPath()%>/deptEmp/deptEmpList.jsp" class="btn btn-outline-secondary btn-lg">부서별 사원 관리</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
 						<a href="<%=request.getContextPath()%>/dept/deptList.jsp" class="btn btn-outline-secondary btn-lg">연봉 관리</a>
 					</td>
 				</tr>

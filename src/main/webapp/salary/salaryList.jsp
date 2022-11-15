@@ -25,6 +25,9 @@
 	final int ROW_PER_PAGE = 10; // 페이지 당 행(글) 갯수
 	int beginRow = (currentPage-1)*ROW_PER_PAGE; // 출력 시작 행
 	int cnt = 0; // 총 행의 갯수
+	final int PAGE_COUNT = 10; // 한 페이지 당 보여줄 페이지 목록 수
+	int beginPage = (currentPage-1)/PAGE_COUNT*PAGE_COUNT+1; //페이지 목록 시작 값
+	int endPage = beginPage+PAGE_COUNT-1; // 페이지 목록 끝 값
 	
 	String cntSql = null;
 	PreparedStatement cntStmt = null;
@@ -47,6 +50,10 @@
 	int lastPage = cnt / ROW_PER_PAGE;
 	if(cnt/ROW_PER_PAGE != 0){
 		lastPage++;
+	}
+	
+	if(endPage > lastPage){ // 페이지 목록이 lastPage까지만 보이도록
+		endPage = lastPage;
 	}
 		
 	/*
@@ -176,69 +183,96 @@
 			<%
 				if(word == null){
 			%>
-					<ul class="pagination justify-content-center">
+				<ul class="pagination justify-content-center">
+					<li class="page-item">
+						<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=1" class="page-link"><<</a>
+					</li>
+					<%
+						if(currentPage > PAGE_COUNT){
+					%>
 						<li class="page-item">
-							<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=1" class="page-link"><<</a>
+							<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage-1%>" class="page-link"><</a>
 						</li>
-						<li class="page-item">
+					<%
+						}
+
+						for(int i=beginPage; i<=endPage; i++){
+							if(currentPage == i){
+							%>
+								<li class="page-item active">
+									<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=i%>" class="page-link"><%=i%></a>
+								</li>
 							<%
-								if(currentPage > 1){
+							} else {
 							%>
-									<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage-1%>" class="page-link"><</a>
+								<li class="page-item">
+									<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=i%>" class="page-link"><%=i%></a>
+								</li>
 							<%
-								}
-							%>
-						</li>
-						<li class="page-item">
-							<a class="page-link"><%=currentPage%></a>
-						</li>
-						<li class="page-item">
-							<%
-								if(currentPage < lastPage){
-							%>
-									<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage+1%>" class="page-link">></a>
-							<%		
-								}
-							%>
-						<li class="page-item">
-							<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=lastPage%>" class="page-link">>></a>
-						</li>
-					</ul>
+							}
+						}
+					
+						if(currentPage < lastPage){
+						%>
+							<li class="page-item">
+								<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage+1%>" class="page-link">></a>
+							</li>
+						<%
+						}
+					%>
+					<li class="page-item">
+						<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=lastPage%>" class="page-link">>></a>
+					</li>
+				</ul>
 			<%
 				} else {
 			%>
-					<ul class="pagination justify-content-center">
+				<ul class="pagination justify-content-center">
+					<li class="page-item">
+						<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=1" class="page-link"><<</a>
+					</li>
+					<%
+						if(currentPage > PAGE_COUNT){
+					%>
 						<li class="page-item">
-							<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=1&word=<%=word%>" class="page-link"><<</a>
+							<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="page-link"><</a>
 						</li>
-						<li class="page-item">
+					<%
+						}
+
+						for(int i=beginPage; i<=endPage; i++){
+							if(currentPage == i){
+							%>
+								<li class="page-item active">
+									<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=i%>&word=<%=word%>" class="page-link"><%=i%></a>
+								</li>
 							<%
-								if(currentPage > 1){
+							} else {
 							%>
-									<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="page-link"><</a>
+								<li class="page-item">
+									<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=i%>&word=<%=word%>" class="page-link"><%=i%></a>
+								</li>
 							<%
-								}
-							%>
-						</li>
-						<li class="page-item">
-							<a class="page-link"><%=currentPage%></a>
-						</li>
-						<li class="page-item">
-							<%
-								if(currentPage < lastPage){
-							%>
-									<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="page-link">></a>
-							<%		
-								}
-							%>
-						<li class="page-item">
-							<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=lastPage%>&word=<%=word%>" class="page-link">>></a>
-						</li>
-					</ul>
+							}
+						}
+					
+						if(currentPage < lastPage){
+						%>
+							<li class="page-item">
+								<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="page-link">></a>
+							</li>
+						<%
+						}
+					%>
+					<li class="page-item">
+						<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=lastPage%>&word=<%=word%>" class="page-link">>></a>
+					</li>
+				</ul>
 			<%
 				}
 			%>
 			</div>
+		</div>
 		</div>
 	</body>
 </html>
