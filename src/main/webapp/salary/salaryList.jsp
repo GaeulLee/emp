@@ -137,7 +137,7 @@
 					<%
 						} else {
 					%>
-							<input type="text" name="word" value="<%=word%>" class="form-control" placeholder="사원 검색 (first name)">
+							<input type="text" name="word" value="<%=word%>" class="form-control" placeholder="사원 검색">
 					<%
 						}
 					%>
