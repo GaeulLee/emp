@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>index</title>
+		<title>관리자 페이지</title>
 		<!-- Latest compiled and minified CSS -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 		<!-- Latest compiled JavaScript -->
@@ -19,7 +19,7 @@
 			<table class="table table-borderless table-light rounded-3 shadow-sm p-4 mb-4 bg-white mt-5">
 				<tr>
 					<td>
-						<h1>INDEX</h1>
+						<h3><strong>관리자 페이지</strong></h3>
 					</td>
 				</tr>
 				<tr>
