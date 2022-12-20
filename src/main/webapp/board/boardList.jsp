@@ -93,10 +93,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>boardList</title>
-		<!-- Latest compiled and minified CSS -->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
-		<!-- Latest compiled JavaScript -->
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/bootswatch@5/dist/minty/bootstrap.min.css,npm/bootswatch@5/dist/minty/bootstrap.min.css">
 		<style>
 			table {
 				text-align: center;
@@ -138,7 +135,7 @@
 				</form>
 			</div>
 			
-			<!-- 3-1. 모델 데이터 어레이리스트 출력 -->	
+			<!-- 3-1. 모델 데이터 어레이리스트 출력 -->
 			<table class="table table-hover align-middle shadow-sm p-4 mb-4 bg-white">
 				<tr class="table-primary">
 					<th>게시물 번호</th>

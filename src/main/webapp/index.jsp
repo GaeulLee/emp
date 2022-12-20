@@ -15,7 +15,7 @@
 		</style>
 		</head>
 	<body>
-		<div class="container w-25">
+		<div class="container w-25" style="border-radius: 10px;">
 			<table class="table table-borderless table-light rounded-3 shadow-sm p-4 mb-4 bg-white mt-5">
 				<tr>
 					<td>
